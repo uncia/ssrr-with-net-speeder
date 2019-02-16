@@ -13,9 +13,9 @@ RUN sed -ri 's/^PermitRootLogin\s+.*/PermitRootLogin yes/' /etc/ssh/sshd_config 
 	sed -ri 's/UsePAM yes/#UsePAM yes/g' /etc/ssh/sshd_config
 
 #install libsodium support chacha20
-RUN wget --no-check-certificate -O libsodium-1.0.16.tar.gz https://github.com/jedisct1/libsodium/releases/download/1.0.16/libsodium-1.0.16.tar.gz &&\
-    tar zxf libsodium-1.0.16.tar.gz && rm -rf libsodium-1.0.16.tar.gz
-WORKDIR /libsodium-1.0.16
+RUN wget --no-check-certificate -O libsodium-1.0.17.tar.gz https://github.com/jedisct1/libsodium/releases/download/1.0.17/libsodium-1.0.17.tar.gz &&\
+    tar zxf libsodium-1.0.17.tar.gz && rm -rf libsodium-1.0.17.tar.gz
+WORKDIR /libsodium-1.0.17
 RUN ./configure && make && make install
 RUN echo "/usr/local/lib" > /etc/ld.so.conf.d/local.conf
 RUN ldconfig
@@ -33,7 +33,7 @@ RUN chmod +x /usr/local/bin/net_speeder
 # Tear down building environment and delete git repository
 WORKDIR /
 RUN rm -rf net-speeder
-RUN rm -rf libsodium-1.0.16
+RUN rm -rf libsodium-1.0.17
 
 # Configure container to run as an executable
 ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]
